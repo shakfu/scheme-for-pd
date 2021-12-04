@@ -3,6 +3,7 @@
 #include "s7.h"
 #include "time.h"
 #include <stdlib.h>
+#include <unistd.h>
  
 #define MAX_OUTLETS 32
 #define MAX_ATOMS_PER_MESSAGE 1024

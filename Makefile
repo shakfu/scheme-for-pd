@@ -14,11 +14,20 @@ s4pd.class.sources = s4pd.c s7.c
 datafiles = README.md
 
 datafiles += \
-  s4pd-help.pd \
-  $(wildcard scm/*.scm) \
-  $(empty)
+	s4pd-help.pd \
+	$(wildcard scm/*.scm) \
+	$(empty)
 
 
 # include Makefile.pdlibbuilder from submodule directory 'pd-lib-builder'
 PDLIBBUILDER_DIR=pd-lib-builder/
 include $(PDLIBBUILDER_DIR)/Makefile.pdlibbuilder
+
+
+.PHONY: callgraph
+
+callgraph:
+	@cflow2dot -x analysis/exclude.txt -i s4pd.c -f pdf -o callgraph
+	@rm -f callgraph0.dot
+	@mv callgraph0.pdf ./analysis/callgraph.pdf
+	@echo "callgraph generated to 'analysis' folder"
