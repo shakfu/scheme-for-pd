@@ -723,7 +723,7 @@ static s7_pointer s7_pd_output(s7_scheme *s7, s7_pointer args){
             if( s7_is_number(item) || s7_is_boolean(item)){
                 s7_obj_to_atom(s7, item, &out_list[i]);
             }else{
-                error("s4pd: Vector output only supported for ints, floats, & booleans");
+                pd_error(0, "s4pd: Vector output only supported for ints, floats, & booleans");
                 return s7_nil(s7);
             }
         }
@@ -732,7 +732,7 @@ static s7_pointer s7_pd_output(s7_scheme *s7, s7_pointer args){
     } 
     // unhandled output type, post an error
     else{
-        error("s4pd: Unhandled output type %s", s7_object_to_c_string(s7, s7_out_val));
+        pd_error(0, "s4pd: Unhandled output type %s", s7_object_to_c_string(s7, s7_out_val));
     }
     // returns nil so that the console is not chatting on every output message
     return s7_nil(s7);
@@ -829,7 +829,7 @@ void s4pd_load_from_path(t_s4pd *x, const char *filename){
     char path_buf[MAXPDSTRING], *name_buf;
     char full_path[MAXPDSTRING];
     if((filedesc = canvas_open(x->x_canvas, filename, "", path_buf, &name_buf, MAXPDSTRING, 0)) < 0){
-        error("s4pd: Can't find file %s. (Check Pd file paths)", filename);
+        pd_error(0, "s4pd: Can't find file %s. (Check Pd file paths)", filename);
         return;    
     }
     close(filedesc);

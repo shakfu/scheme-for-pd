@@ -24,7 +24,14 @@ PDLIBBUILDER_DIR=pd-lib-builder/
 include $(PDLIBBUILDER_DIR)/Makefile.pdlibbuilder
 
 
-.PHONY: callgraph
+.PHONY: callgraph testdir
+
+testdir:
+	@mkdir -p ./s4pd
+	@cp -rf scm/*.scm ./s4pd
+	@cp s4pd.pd_darwin ./s4pd
+	@cp *.pd ./s4pd
+
 
 callgraph:
 	@cflow2dot -x analysis/exclude.txt -i s4pd.c -f pdf -o callgraph
